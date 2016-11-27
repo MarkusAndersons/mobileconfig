@@ -1,5 +1,6 @@
 var express = require('express');
 var config = require('../config');
+var handlebars = require('handlebars');
 var router = express.Router();
 
 /* GET home page. */
