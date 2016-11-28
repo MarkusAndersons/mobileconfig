@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var config = require('./config');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -27,6 +29,10 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: config.session.secret,
+                resave: false,
+                saveUninitialized: true
+}));
 
 app.use('/', index);
 app.use('/users', users);
