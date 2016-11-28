@@ -1,4 +1,11 @@
 <div class="container">
-    <h1>{{title}}</h1>
-    <p>To generate profiles, first enter the general details below</p>
+    <div class="row start">
+        <h1>{{title}}</h1>
+        <p>To generate profiles, please enter your email address below.</p>
+        <p>Email: <input type='text' name="email" id="email" placeholder="markus@example.com" style="width:200px"></p>
+        <div id="message" style="height:100px"></div>
+    </div>
+    <div class="row start">
+        <button class="btn btn-default" onclick="checkEmail()">Submit</button>
+    </div>
 </div>
