@@ -33,4 +33,9 @@ router.post('/valid_email', function(req, res) {
     res.sendStatus(200);
 });
 
+router.get('/generate', function(req, res, next) {
+    res.render('generate', { title: config.title });
+});
+
+
 module.exports = router;

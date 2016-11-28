@@ -22,13 +22,18 @@ function checkEmail() {
         newReq.onreadystatechange = function() {
             if (newReq.readyState==4 && newReq.status==200) {
                 console.log('Sent to server');
-                window.location = "http://localhost:3000/begin";
+                window.location = "http://localhost:3000/generate";
             }
         }
         newReq.open("POST", "http://localhost:3000/valid_email", true);
         newReq.setRequestHeader('Content-Type', 'application/json');
         newReq.send(JSON.stringify(email));
     }
+}
+function checkSubmit(e) {
+   if(e && e.keyCode == 13) {
+      checkEmail();
+   }
 }
 
 // restart
@@ -37,4 +42,12 @@ function continuePrevious() {
 }
 function restart() {
     window.location = "http://localhost:3000/restart";
+}
+
+// shading for the hover over config type selection
+function hover(x) {
+    x.style.backgroundColor = "#bbbbbb";
+}
+function exit_hover(x) {
+    x.style.backgroundColor = "#ffffff";
 }

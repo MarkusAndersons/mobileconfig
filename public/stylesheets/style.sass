@@ -18,3 +18,30 @@ a
     text-align: center
 .start
     text-align: center
+
+.progress-cust
+    @extend .start
+
+.config-selection
+    padding-top: 50px
+
+$cellWidth: 250px
+$cellHeight: 200px
+
+.config-type
+    border-radius: 10px
+    border-color: #303030
+    border-width: medium
+    border-style: solid
+    width: $cellWidth
+    height: $cellHeight
+    text-align: center
+    cursor: pointer
+
+.config-type-left
+    @extend .config-type
+    float: right
+
+.config-type-right
+    @extend .config-type
+    float: left
