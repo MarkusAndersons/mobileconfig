@@ -8,6 +8,7 @@ var sess;
 router.get('/', function(req, res, next) {
     sess = req.session;
     if (sess.email) {
+        console.log("Already defined");
         res.render('index-with-confirm', { title: config.title, currentEmail: sess.email });
     } else {
         res.render('index', { title: config.title });

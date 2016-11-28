@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{title}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-  </head>
-  <body>
-    {{{body}}}
-  </body>
-  <script src="/javascripts/main.js"></script>
+    <head>
+        <title>{{title}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    </head>
+    <body>
+        <div class="container" id="title-header">
+            <div class="row start">
+                <h1>{{title}}</h1>
+            </div>
+        </div>
+        {{{body}}}
+    </body>
+    <script src="/javascripts/main.js"></script>
 </html>

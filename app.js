@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var config = require('./config');
+var RedisStore = require('connect-redis')(session);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -23,15 +24,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  sourceMap: true
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    indentedSyntax: true,
+    sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret: config.session.secret,
-                resave: false,
-                saveUninitialized: true
+/*app.use(session({
+    secret: config.session.secret,
+    resave: false,
+    saveUninitialized: true,
+    store: new RedisStore(config.redis)
+}));*/
+app.use(session({   // replace with the commented one for Redis
+    secret: config.session.secret,
+    resave: false,
+    saveUninitialized: true
 }));
 
 app.use('/', index);

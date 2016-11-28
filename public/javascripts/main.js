@@ -30,3 +30,11 @@ function checkEmail() {
         newReq.send(JSON.stringify(email));
     }
 }
+
+// restart
+function continuePrevious() {
+    window.location = "http://localhost:3000/begin";
+}
+function restart() {
+    window.location = "http://localhost:3000/restart";
+}
