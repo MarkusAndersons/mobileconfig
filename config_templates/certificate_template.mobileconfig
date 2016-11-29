@@ -1,0 +1,32 @@
+<dict>
+    <key>PayloadType</key>
+    <string>{{PayloadType}}</string>
+    <key>PayloadVersion</key>
+    <integer>{{PayloadVersion}}</integer>
+    <key>PayloadIdentifier</key>
+    <string>{{PayloadIdentifier}}</string>
+    <key>PayloadUUID</key>
+    <string>{{PayloadUUID}}</string>
+    <key>PayloadDisplayName</key>
+    <string>{{PayloadDisplayName}}</string>
+    {{#if PayloadDescription}}
+    <key>PayloadDescription</key>
+    <string>{{PayloadDescription}}</string>
+    {{/if}}
+    {{#if PayloadOrganization}}
+    <key>PayloadOrganization</key>
+    <string>{{PayloadOrganization}}</string>
+    {{/if}}
+    {{#if PayloadCertificateFileName}}
+    <key>PayloadCertificateFileName</key>
+    <string>{{PayloadCertificateFileName}}</string>
+    {{/if}}
+    <key>PayloadContent</key>
+    <data>
+        {{CertData}}
+    </data>
+    {{#if Password}}
+    <key>Password</key>
+    <string>{{Password}}</string>
+    {{/if}}
+</dict>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Inc//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>PayloadDisplayName</key>
+        <string>Printer Admin Certificate</string>
+        <key>PayloadDescription</key>
+        <string>This configuration profile adds the necessary certificates to be able to correctly access the printer administration page at https://10.1.1.4</string>
+
+        <key>PayloadIdentifier</key>
+        <string>com.markusandersons.printer</string>
+        <key>PayloadUUID</key>
+        <string>C12AF62D-AB50-4372-BDDD-C4361A57E748</string>
+        <key>PayloadType</key>
+        <string>Configuration</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+
+        <key>PayloadContent</key>
+        <array>
+            {{ConfigurationContent}}
+        </array>
+
+    </dict>
+</plist>
+<!-- required fields are at https://developer.apple.com/library/content/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html
+     To convert the cert to base64, export in Keychain Access as .pem then simply $ cat cert.pem -->
