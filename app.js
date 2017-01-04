@@ -30,17 +30,20 @@ app.use(require('node-sass-middleware')({
     sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-/*app.use(session({
-    secret: config.session.secret,
-    resave: false,
-    saveUninitialized: true,
-    store: new RedisStore(config.redis)
-}));*/
-app.use(session({   // replace with the commented one for Redis
-    secret: config.session.secret,
-    resave: false,
-    saveUninitialized: true
-}));
+if (config.session.useRedis == true) {
+    app.use(session({
+        secret: config.session.secret,
+        resave: false,
+        saveUninitialized: true,
+        store: new RedisStore(config.redis)
+    }));
+} else {
+    app.use(session({
+        secret: config.session.secret,
+        resave: false,
+        saveUninitialized: true
+    }));
+}
 
 app.use('/', index);
 
