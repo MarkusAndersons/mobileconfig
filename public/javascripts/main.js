@@ -51,3 +51,14 @@ function hover(x) {
 function exit_hover(x) {
     x.style.backgroundColor = "#ffffff";
 }
+
+// navigation for generation
+function addGenerate(type) {
+    if (type == 'cert') {
+        window.location = "http://localhost:3000/generate/certificate";
+    } else if (type == 'email') {
+        window.location = "http://localhost:3000/generate/email";
+    } else if (type == 'wifi') {
+        window.location = "http://localhost:3000/generate/wifi";
+    }
+}

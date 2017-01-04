@@ -2,6 +2,7 @@
 var config = {};
 
 config.title = "Configuration Profile Generator";
+config.url = "http://localhost:3000";
 
 // session data
 config.session = {};
