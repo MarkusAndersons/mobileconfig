@@ -49,7 +49,7 @@ function checkGeneralSettings() {
             window.location = "http://localhost:3000/generate";
         }
     }
-    req.open("POST", "http://localhost:3000/valid_general_settings", true);
+    req.open("POST", "http://localhost:3000/api/general_settings", true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify(content));
 }

@@ -18,7 +18,8 @@
         "serve-favicon": "~2.3.0",
         "uuid": "^3.0.0",
         "express-session": "^1.14.0",
-        "connect-redis": "~3.1.0"
+        "connect-redis": "~3.1.0",
+        "multer" : "~1.2.0"
     },
     "devDependencies": {},
     "repository": {
