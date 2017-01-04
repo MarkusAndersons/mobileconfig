@@ -43,7 +43,6 @@ app.use(session({   // replace with the commented one for Redis
 }));
 
 app.use('/', index);
-app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

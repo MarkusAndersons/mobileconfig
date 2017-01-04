@@ -80,4 +80,15 @@ function individualProfile(template, req) {
         sess.configurations = [locSettings];
 }
 
+
+/////// API //////
+
+router.post('/api/certificate_generation', function(req, res) {
+
+
+    res.sendStatus(200);
+    window.location = config.url + "/download_profile"; ///?????????
+});)
+
+
 module.exports = router;
