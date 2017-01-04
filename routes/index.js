@@ -42,7 +42,7 @@ router.get('/generate', function(req, res, next) {
 
 // display settings options page
 router.get('/generate/certificate', function(req, res, next) {
-    res.render('generator/certificate', { title: config.title });
+    res.render('generator/certificate', { title: config.title, url: config.url});
 });
 router.get('/generate/email', function(req, res, next) {
     res.render('generator/email', { title: config.title });
@@ -68,7 +68,6 @@ router.post('/add_payload', function(req, res) {
     res.sendStatus(200);
 });
 
-
 // payload settings extraction
 function individualProfile(template, req) {
     var inputSettings = req.body.configuration;
@@ -80,6 +79,5 @@ function individualProfile(template, req) {
     else
         sess.configurations = [locSettings];
 }
-
 
 module.exports = router;

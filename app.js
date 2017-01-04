@@ -9,6 +9,7 @@ var config = require('./config');
 var RedisStore = require('connect-redis')(session);
 
 var index = require('./routes/index');
+var api = require('./routes/api');
 
 var app = express();
 
@@ -42,6 +43,7 @@ app.use(session({   // replace with the commented one for Redis
 }));
 
 app.use('/', index);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

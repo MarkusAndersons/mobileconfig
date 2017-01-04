@@ -5,6 +5,27 @@
         <p>To generate a mobileconfig containing a certificate, follow the steps below</p>
     </div>
     <div class="row">
-        
+        <form action="{{url}}/api/certificate_generation" method="POST">
+            <div class="form-group">
+                <label for="certificateDisplayName">Certificate Display Name*</label>
+                <input type="text" class="form-control" id="certificateDisplayName" placeholder="My Certificate">
+                <p class="help-block">This is the name of the certificate which will be displayed to the user</p>
+
+                <label for="certificateDescription">Certificate Description (Optional)</label>
+                <input type="text" class="form-control" id="certificateDescription" placeholder="This certificate allows you to ...">
+                <p class="help-block">A description of this certificate. This description is shown on the Detail screen.</p>
+
+                <label for="certificateOrganisation">Certificate Organisation (Optional)</label>
+                <input type="text" class="form-control" id="certificateOrganisation" placeholder="Company Ltd.">
+                <p class="help-block">The name of the organization that provided the profile</p>
+            </div>
+            <div class="form-group">
+                <label for="fileInput">Certificate Upload</label>
+                <p class="help-block">Please select the certificate to upload in Privacy Enhanced Mail (.pem) format. This is a PEM-encoded certificate without private key. May contain root certificates.</p>
+                <p class="help-block">NOTE: If the certificate is not in the correct format, this process will fail. Other formats may be supported in the future but are not currently.</p>
+                <input type="file" id="exampleInputFile">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     </div>
 </div>
