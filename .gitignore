@@ -39,3 +39,6 @@ jspm_packages
 # Compiled SASS
 public/stylesheets/style.css
 public/stylesheets/style.css.map
+
+# Temp uploaded certificates
+tmp/
