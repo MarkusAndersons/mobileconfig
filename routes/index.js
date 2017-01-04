@@ -106,15 +106,18 @@ router.post('/api/certificate_settings', upload.single("fileInput"), function(re
         configuration.PayloadUUID = uuid.v4();
         configuration.PayloadType = "com.apple.security.pem";
         //console.log(configuration);
-        // do something with this config
+        sess.tempCertSettings = configuration;
         res.sendStatus(200);
     }
 });
 router.post('/api/certificate_upload', upload.single("fileInput"), function(req, res) {
-    console.log(req.file);
-    res.sendStatus(200);
+    sess.tempCertSettings.PayloadCertificateFileName = req.file.originalname;
+    console.log(sess.tempCertSettings);
+    //TODO delete the file after complete
+    //TODO compile the payload
+    res.redirect('/generate');  // TODO need a permanent fix
+    //res.sendStatus(200);
 });
-
 
 // payload settings extraction
 function individualProfile(template, configuration) {
