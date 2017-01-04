@@ -1,0 +1,49 @@
+<dict>
+    <key>PayloadType</key>
+    <string>{{PayloadType}}</string>
+    <key>PayloadVersion</key>
+    <integer>{{PayloadVersion}}</integer>
+    <key>PayloadIdentifier</key>
+    <string>{{PayloadIdentifier}}</string>
+    <key>PayloadUUID</key>
+    <string>{{PayloadUUID}}</string>
+    <key>PayloadDisplayName</key>
+    <string>{{PayloadDisplayName}}</string>
+    {{#if PayloadDescription}}
+    <key>PayloadDescription</key>
+    <string>{{PayloadDescription}}</string>
+    {{/if}}
+    {{#if PayloadOrganization}}
+    <key>PayloadOrganization</key>
+    <string>{{PayloadOrganization}}</string>
+    {{/if}}
+    {{#if EmailAccountDescription}}
+    <key>EmailAccountDescription</key>
+    <string>{{EmailAccountDescription}}</string>
+    {{/if}}
+    {{#if EmailAccountName}}
+    <key>EmailAccountName</key>
+    <string>{{EmailAccountName}}</string>
+    {{/if}}
+    <key>EmailAccountType</key>
+    <string>{{EmailAccountType}}</string>
+    <key>EmailAddress</key>
+    <string>{{EmailAddress}}</string>
+    <key>IncomingMailServerAuthentication</key>
+    <string>{{IncomingMailServerAuthentication}}</string>
+    <key>IncomingMailServerHostName</key>
+    <string>{{IncomingMailServerHostName}}</string>
+    {{#if IncomingMailServerPortNumber}}
+    <key>IncomingMailServerPortNumber</key>
+    <integer>{{IncomingMailServerPortNumber}}</integer>
+    {{\if}}
+    {{#if IncomingMailServerUseSSL}}
+    <true/>
+    {{ else }}
+    <false/>
+    {{\if}}
+
+
+    MORE FROM HERE
+    
+</dict>
