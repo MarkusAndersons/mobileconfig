@@ -68,27 +68,33 @@ router.post('/add_payload', function(req, res) {
     res.sendStatus(200);
 });
 
-// payload settings extraction
-function individualProfile(template, req) {
-    var inputSettings = req.body.configuration;
-    var template = handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates", template + ".mobileconfig")), "utf-8");
-    var locSettings = template(inputSettings);
-
-    if (sess.configurations)
-        sess.configurations = sess.configurations.concat([locSettings]);
-    else
-        sess.configurations = [locSettings];
-}
-
 
 /////// API //////
+router.post('/api/general_settings', function(req, res) {
+    //////???
+    
+    res.sendStatus(200);
+    window.location = config.url + "/generate";
+});
 
 router.post('/api/certificate_generation', function(req, res) {
 
 
     res.sendStatus(200);
     window.location = config.url + "/download_profile"; ///?????????
-});)
+});
+
+
+// payload settings extraction
+function individualProfile(template, configuration) {
+    var template = handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates", template + ".mobileconfig")), "utf-8");
+    var locSettings = template(configuration);
+
+    if (sess.configurations)
+        sess.configurations = sess.configurations.concat([locSettings]);
+    else
+        sess.configurations = [locSettings];
+}
 
 
 module.exports = router;

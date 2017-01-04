@@ -22,7 +22,7 @@ function checkEmail() {
         newReq.onreadystatechange = function() {
             if (newReq.readyState==4 && newReq.status==200) {
                 console.log('Sent to server');
-                window.location = "http://localhost:3000/generate";
+                window.location = "http://localhost:3000/begin";
             }
         }
         newReq.open("POST", "http://localhost:3000/valid_email", true);
