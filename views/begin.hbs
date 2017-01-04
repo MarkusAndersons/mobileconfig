@@ -1,0 +1,29 @@
+<div class="container" onKeyPress="return checkEmailSubmit(event)">
+    <div class="row start">
+        <p>Please enter the general settings required for all configuration profiles below. Asterisk (*) denotes a required field.</p>
+    </div>
+    <div class="row">
+        <div id="message" style="height:100px"></div>
+        <form>
+            <div class="form-group">
+                <label for="PayloadDisplayName">Display Name</label>
+                <input type="text" class="form-control" id="PayloadDisplayName" placeholder="My Profile">
+                <p class="help-block">This is the name of the profile which will be displayed to the user</p>
+
+                <label for="PayloadDescription">Description</label>
+                <input type="text" class="form-control" id="PayloadDescription" placeholder="This profile allows you to ...">
+                <p class="help-block">This description is shown on the Detail screen.</p>
+
+                <label for="PayloadOrganization">Organization</label>
+                <input type="text" class="form-control" id="PayloadOrganization" placeholder="Company Ltd.">
+                <p class="help-block">The name of the organization that provided the profile</p>
+
+                <label for="PayloadIdentifier">Identifier*</label>
+                <input type="text" class="form-control" id="PayloadIdentifier" placeholder="com.markusandersons.printer">
+                <p class="help-block">A reverse-DNS style identifier (com.example.myprofile, for example) that identifies the profile.</p>
+        </form>
+    </div>
+    <div class="row start">
+        <button class="btn btn-default" onclick="checkGeneralSettings()">Submit</button>
+    </div>
+</div>

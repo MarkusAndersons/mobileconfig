@@ -3,6 +3,7 @@ var config = require('../config');
 var handlebars = require('handlebars');
 var fs = require('fs');
 var path = require('path');
+var uuid = require('uuid');
 var router = express.Router();
 
 /* GET home page. */
@@ -35,6 +36,24 @@ router.post('/valid_email', function(req, res) {
     res.sendStatus(200);
 });
 
+// store general settings
+router.post('/valid_general_settings', function(req, res) {
+    if (!req.body.PayloadIdentifier) {
+        res.sendStatus(400);
+    } else {
+        sess.general = req.body;
+        sess.general.PayloadVersion = 1;
+        sess.general.PayloadUUID = uuid.v4();
+        //console.log(sess.general);
+        res.sendStatus(200);
+    }
+});
+
+
+router.get('/begin', function(req, res, next) {
+    res.render('begin', { title: config.title });
+});
+
 // display generate page
 router.get('/generate', function(req, res, next) {
     res.render('generate', { title: config.title });
@@ -52,6 +71,7 @@ router.get('/generate/wifi', function(req, res, next) {
 });
 
 // get current settings for a profile
+/*      This is replaced by the api below
 router.post('/add_payload', function(req, res) {
     console.log('recieved payload');
     // determine type of payload
@@ -67,12 +87,12 @@ router.post('/add_payload', function(req, res) {
 
     res.sendStatus(200);
 });
-
+*/
 
 /////// API //////
 router.post('/api/general_settings', function(req, res) {
     //////???
-    
+
     res.sendStatus(200);
     window.location = config.url + "/generate";
 });

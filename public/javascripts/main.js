@@ -30,7 +30,37 @@ function checkEmail() {
         newReq.send(JSON.stringify(email));
     }
 }
-function checkSubmit(e) {
+function checkGeneralSettings() {
+    document.getElementById('message').innerHTML = "";
+    if (!document.getElementById('PayloadIdentifier').value) {
+        document.getElementById('message').innerHTML += "<p>A valid Identifier is needed</p>";
+        return;
+    }
+    // build JSON
+    var content = {};
+    content.PayloadDisplayName = document.getElementById('PayloadDisplayName').value;
+    content.PayloadDescription = document.getElementById('PayloadDescription').value;
+    content.PayloadOrganization = document.getElementById('PayloadOrganization').value;
+    content.PayloadIdentifier = document.getElementById('PayloadIdentifier').value;
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+        if (req.readyState == 4 && req.status == 200) {
+            window.location = "http://localhost:3000/generate";
+        }
+    }
+    req.open("POST", "http://localhost:3000/valid_general_settings", true);
+    req.setRequestHeader('Content-Type', 'application/json');
+    req.send(JSON.stringify(content));
+}
+
+// check enter pressed
+function checkGeneralSubmit(e) {
+    if(e && e.keyCode == 13) {
+       checkGeneralSettings();
+    }
+}
+function checkEmailSubmit(e) {
    if(e && e.keyCode == 13) {
       checkEmail();
    }
