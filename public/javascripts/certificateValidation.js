@@ -1,9 +1,7 @@
 function submit() {
-    var ok = true;
     document.getElementById('message').innerHTML = "";
     if (!document.getElementById('certificateDisplayName').value) {
         document.getElementById('message').innerHTML += "<p>A valid Display Name is required.</p>";
-        return;
     }
     // build JSON
     var content = {};
