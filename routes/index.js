@@ -11,8 +11,9 @@ var upload = multer({ dest: 'tmp/' });
 
 
 var templates = {
-    general: handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","base_template.hbs")), "utf8"),
-    certificate : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","certificate_template.hbs")), "utf8")
+    general: handlebars.compile(fs.readFileSync(path.join(__dirname, "..", "config_templates","base_template.hbs"), "utf-8")),
+    certificate : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","certificate_template.hbs"), "utf-8")),
+    email : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","email_template.hbs"), "utf-8"))
 };
 
 /* GET home page. */
@@ -69,24 +70,8 @@ router.get('/generate/wifi', function(req, res, next) {
     res.render('generator/wifi', { title: config.title });
 });
 
-// get current settings for a profile
-/*      This is replaced by the api below
-router.post('/add_payload', function(req, res) {
-    console.log('recieved payload');
-    // determine type of payload
-    if (req.body.configType == "certificate") {
-        individualProfile("certificate_template", req);
-    } else if (req.body.configType == "email") {
-        individualProfile("email_template", req);
-    } else if (req.body.configType == "wifi") {
-        individualProfile("wifi_template", req);
-    } else if (req.body.configType == "restrictions") {
-        individualProfile("restrictions_template", req);
-    }
 
-    res.sendStatus(200);
-});
-*/
+
 
 /////// API //////
 // store general settings
@@ -119,20 +104,17 @@ router.post('/api/certificate_settings', upload.single("fileInput"), function(re
 });
 router.post('/api/certificate_upload', upload.single("fileInput"), function(req, res) {
     sess.tempCertSettings.PayloadCertificateFileName = req.file.originalname;
-    fs.readFile(req.file.path, 'utf8', function (err,data) {
-        if (err) {
-            return console.log(err);
-        }
-        var tmpCert = String(data).substr(28, String(data).length - 55);
-        sess.tempCertSettings.PayloadContent = tmpCert;
-    });
+    var tmpCert = fs.readFileSync(req.file.path, 'utf8');
+    sess.tempCertSettings.PayloadContent = String(tmpCert).substr(28, String(tmpCert).length - 55);
+    console.log(sess.tempCertSettings);
+
     // delete the cert file
     fs.unlink(req.file.path, (err) => {
         if (err) throw err;
         console.log('successfully deleted ' + req.file.path);
     });
 
-    // compile the payload  - THIS DOESN'T COMPILE
+    // compile the payload  - THERE IS AN ISSUE WITH THE ENCODING OF CERT
     individualProfileCompile(templates.certificate, sess.tempCertSettings);
     // reset to allow more than one certificate
     sess.tempCertSettings = {};
