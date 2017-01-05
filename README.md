@@ -17,3 +17,5 @@ $ DEBUG=mobileconfig:* npm start
 
 ## TODO
 In routes/index.js the router for POST to /api/certificate_upload needs to be improved to not use a 302 redirect, instead use a client side fix.
+
+The certificate which is added to the plist is encoded differently from the input, must be investigated and fixed.
