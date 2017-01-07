@@ -13,7 +13,18 @@ config.redis = { host: "127.0.0.1",
 };
 
 // email settings
-config.mail = {};
+// curently only supports mailgun
+config.mail = {
+    api_key: '',
+    domain: '',
+    data: {
+        from: 'Markus Andersons <no-reply@markusandersons.com>',
+        to: '',
+        subject: '',
+        text: '',
+        attachment: ''
+    }
+};
 
 
 
