@@ -9,7 +9,11 @@
         {{#if PayloadDescription}}
         <key>PayloadDescription</key>
         <string>{{PayloadDescription}}</string>
-        {{PayloadDescription}}
+        {{/if}}
+        {{#if PayloadOrganization}}
+        <key>PayloadOrganization</key>
+        <string>{{PayloadOrganization}}</string>
+        {{/if}}
 
         <key>PayloadIdentifier</key>
         <string>{{PayloadIdentifier}}</string>
@@ -22,8 +26,4 @@
 
         <key>PayloadContent</key>
         <array>
-            {{ConfigurationContent}}
-        </array>
-
-    </dict>
-</plist>
+            

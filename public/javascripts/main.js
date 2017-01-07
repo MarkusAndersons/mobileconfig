@@ -92,3 +92,14 @@ function addGenerate(type) {
         window.location = "http://localhost:3000/generate/wifi";
     }
 }
+
+function createProfile() {
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+        if (req.readyState == 4 && req.status == 200) {
+            window.location = "http://localhost:3000/download";
+        }
+    }
+    req.open("GET", "http://localhost:3000/api/create_profile", true);
+    req.send();
+}

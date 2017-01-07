@@ -40,9 +40,7 @@ router.get('/restart', function(req, res, next) {
 
 // store email
 router.post('/valid_email', function(req, res) {
-    console.log('recieved email');
     sess.email = req.body.address;
-    console.log(sess.email);
     res.sendStatus(200);
 });
 
@@ -123,6 +121,20 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
     res.redirect('/generate');  // TODO need a permanent fix
     //res.sendStatus(200);
 });
+
+router.get('/api/create_profile', function(req, res, next) {
+    var PayloadContent = "";
+    for (var i = 0; i < sess.configurations.length; i++) {
+        PayloadContent += sess.configurations[i];
+    }
+    var profile = templates.general(sess.general);
+    profile += PayloadContent;
+    profile += "</array></dict></plist>";
+
+    res.sendStatus(200);
+});
+
+
 
 // payload settings extraction
 function individualProfileCompile(template, configuration) {
