@@ -1,6 +1,7 @@
 # mobileconfig
 A simple Node web app to create custom Apple Configuration files (.mobileconfig)
 
+[![Code Climate](https://codeclimate.com/github/MarkusAndersons/mobileconfig/badges/gpa.svg)](https://codeclimate.com/github/MarkusAndersons/mobileconfig)
 ![David](https://david-dm.org/markusandersons/mobileconfig.svg)
 
 ## Dependencies
