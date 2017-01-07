@@ -12,7 +12,8 @@ var upload = multer({ dest: 'tmp/' });
 
 var templates = {
     general: handlebars.compile(fs.readFileSync(path.join(__dirname, "..", "config_templates","base_template.hbs"), "utf-8")),
-    certificate : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","certificate_template.hbs"), "utf-8")),
+    certificate : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","certificate_template_part1.hbs"), "utf-8")),
+    certificateEnd : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","certificate_template_part2.hbs"), "utf-8")),
     email : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","email_template.hbs"), "utf-8"))
 };
 
@@ -116,7 +117,6 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
     individualProfileCompile(templates.certificate, sess.tempCertSettings);
     // reset to allow more than one certificate
     sess.tempCertSettings = {};
-    console.log(sess.configurations[0]);
 
     res.redirect('/generate');  // TODO need a permanent fix
     //res.sendStatus(200);
@@ -139,6 +139,11 @@ router.get('/api/create_profile', function(req, res, next) {
 // payload settings extraction
 function individualProfileCompile(template, configuration) {
     var locSettings = template(configuration);
+
+    if (template == templates.certificate) {
+        locSettings += configuration.PayloadContent;
+        locSettings += templates.certificateEnd(configuration);
+    }
 
     if (sess.configurations)
         sess.configurations = sess.configurations.concat([locSettings]);
