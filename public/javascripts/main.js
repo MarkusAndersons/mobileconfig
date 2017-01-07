@@ -5,29 +5,21 @@ function checkEmail() {
     email.address = document.getElementById('email').value;
     var atCount = 0;
     for (var i = 0; i < email.address.length; i++) {
-        if(email.address[i] == '@') {
+        if(email.address[i] === '@') {
             atCount++;
             console.log(atCount);
         }
     }
-    if(email.address == '') {
+    if(email.address === '') {
         document.getElementById('message').innerHTML = '<p>This needs a valid email address</p>';
     }
-    else if(atCount != 1) {
+    else if(atCount !== 1) {
         document.getElementById('message').innerHTML = '<p>This needs a valid email address</p>';
     }
-    else if(atCount == 1) {
+    else if(atCount === 1) {
         // post email
-        var newReq = new XMLHttpRequest();             // make new HTTP request
-        newReq.onreadystatechange = function() {
-            if (newReq.readyState==4 && newReq.status==200) {
-                console.log('Sent to server');
-                window.location = "http://localhost:3000/begin";
-            }
-        }
-        newReq.open("POST", "http://localhost:3000/valid_email", true);
-        newReq.setRequestHeader('Content-Type', 'application/json');
-        newReq.send(JSON.stringify(email));
+        ajax("http://localhost:3000/valid_email", "http://localhost:3000/begin",
+            "POST", email)
     }
 }
 function checkGeneralSettings() {
@@ -43,25 +35,18 @@ function checkGeneralSettings() {
     content.PayloadOrganization = document.getElementById('PayloadOrganization').value;
     content.PayloadIdentifier = document.getElementById('PayloadIdentifier').value;
 
-    var req = new XMLHttpRequest();
-    req.onreadystatechange = function() {
-        if (req.readyState == 4 && req.status == 200) {
-            window.location = "http://localhost:3000/generate";
-        }
-    }
-    req.open("POST", "http://localhost:3000/api/general_settings", true);
-    req.setRequestHeader('Content-Type', 'application/json');
-    req.send(JSON.stringify(content));
+    ajax("http://localhost:3000/api/general_settings", "http://localhost:3000/generate",
+        "POST", content);
 }
 
 // check enter pressed
 function checkGeneralSubmit(e) {
-    if(e && e.keyCode == 13) {
+    if(e && e.keyCode === 13) {
        checkGeneralSettings();
     }
 }
 function checkEmailSubmit(e) {
-   if(e && e.keyCode == 13) {
+   if(e && e.keyCode === 13) {
       checkEmail();
    }
 }
@@ -94,12 +79,22 @@ function addGenerate(type) {
 }
 
 function createProfile() {
+    ajax("http://localhost:3000/api/create_profile",
+        "http://localhost:3000/download", "GET", null);
+}
+
+function ajax(apiEndpoint, redirect, method, content) {
     var req = new XMLHttpRequest();
     req.onreadystatechange = function() {
-        if (req.readyState == 4 && req.status == 200) {
-            window.location = "http://localhost:3000/download";
+        if (req.readyState === 4 && req.status === 200) {
+            window.location = redirect;
         }
     }
-    req.open("GET", "http://localhost:3000/api/create_profile", true);
-    req.send();
+    req.open(method, apiEndpoint, true);
+    if (method === "GET") {
+        req.send();
+    } else if (method === "POST") {
+        req.setRequestHeader('Content-Type', 'application/json');
+        req.send(JSON.stringify(content));
+    }
 }
