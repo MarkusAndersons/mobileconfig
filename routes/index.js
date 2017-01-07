@@ -46,35 +46,18 @@ router.post('/valid_email', function(req, res) {
     res.sendStatus(200);
 });
 
-
-router.get('/begin', function(req, res, next) {
-    res.render('begin', { title: config.title });
-});
+renderGet('/begin', 'begin');
 
 // display generate page
-router.get('/generate', function(req, res, next) {
-    res.render('generate', { title: config.title });
-});
+renderGet('/generate', 'generate');
 
 // display settings options page
-router.get('/generate/certificate', function(req, res, next) {
-    res.render('generator/certificate', { title: config.title, url: config.url});
-});
-router.get('/generate/certificate/upload', function(req, res, next) {
-    res.render('generator/certificate-upload', { title: config.title, url: config.url});
-});
-router.get('/generate/email', function(req, res, next) {
-    res.render('generator/email', { title: config.title });
-});
-router.get('/generate/wifi', function(req, res, next) {
-    res.render('generator/wifi', { title: config.title });
-});
+renderGet('/generate/certificate', 'generator/certificate');
+renderGet('/generate/certificate/upload', 'generator/certificate-upload');
+renderGet('/generate/email', 'generator/email');
+renderGet('/generate/wifi', 'generator/wifi');
 
-router.get('/download', function(req, res, next) {
-    res.render('download', { title: config.title });
-});
-
-
+renderGet('/download', 'download');
 
 
 /////// API //////
@@ -123,7 +106,7 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
     // reset to allow more than one certificate
     sess.tempCertSettings = {};
 
-    res.redirect('/generate');  // TODO need a permanent fix
+    res.redirect('/generate');  // need a permanent fix
     //res.sendStatus(200);
 });
 
@@ -165,5 +148,10 @@ function individualProfileCompile(template, configuration) {
         sess.configurations = [locSettings];
 }
 
+function renderGet(url, template) {
+    router.get(url, function(req, res, next) {
+        res.render(template, { title: config.title, url: config.url});
+    });
+}
 
 module.exports = router;
