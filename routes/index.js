@@ -4,6 +4,7 @@ var handlebars = require('handlebars');
 var fs = require('fs');
 var path = require('path');
 var uuid = require('uuid');
+var tmp = require('tmp');
 var router = express.Router();
 
 var multer = require('multer');
@@ -69,6 +70,10 @@ router.get('/generate/wifi', function(req, res, next) {
     res.render('generator/wifi', { title: config.title });
 });
 
+router.get('/download', function(req, res, next) {
+    res.render('download', { title: config.title });
+});
+
 
 
 
@@ -113,7 +118,7 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
         console.log('successfully deleted ' + req.file.path);
     });
 
-    // compile the payload  - THERE IS AN ISSUE WITH THE ENCODING OF CERT
+    // compile the payload
     individualProfileCompile(templates.certificate, sess.tempCertSettings);
     // reset to allow more than one certificate
     sess.tempCertSettings = {};
@@ -121,6 +126,9 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
     res.redirect('/generate');  // TODO need a permanent fix
     //res.sendStatus(200);
 });
+
+
+
 
 router.get('/api/create_profile', function(req, res, next) {
     var PayloadContent = "";
@@ -131,16 +139,22 @@ router.get('/api/create_profile', function(req, res, next) {
     profile += PayloadContent;
     profile += "</array></dict></plist>";
 
+    // THIS NEEDS TO BE DONE
+    /*var path = '../tmp/' + sess.email + '.mobileconfig';
+    console.log(path);
+    fs.closeSync(fs.openSync(filepath, 'w'));
+    fs.writeFile(path, profile, (err) => {
+        console.log("saved to " + path);
+    });
+    sess.profilePath = path;*/
     res.sendStatus(200);
 });
-
-
 
 // payload settings extraction
 function individualProfileCompile(template, configuration) {
     var locSettings = template(configuration);
 
-    if (template == templates.certificate) {
+    if (template === templates.certificate) {
         locSettings += configuration.PayloadContent;
         locSettings += templates.certificateEnd(configuration);
     }
