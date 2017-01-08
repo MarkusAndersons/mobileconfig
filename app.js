@@ -70,7 +70,7 @@ app.use(function(err, req, res, next) {
 process.on( "SIGINT", function(){
     cleanup.deleteFiles();
     setTimeout(function() {
-        console.log("The server has been manually stopped\n");
+        //console.log("The server has been manually stopped\n");
         process.exit();
     }, 10);
 });
