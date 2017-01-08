@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var config = require('./config');
+var cleanup = require('./cleanup');
 var RedisStore = require('connect-redis')(session);
 
 var index = require('./routes/index');
@@ -64,6 +65,14 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+process.on( "SIGINT", function(){
+    cleanup.deleteFiles();
+    setTimeout(function() {
+        console.log("The server has been manually stopped\n");
+        process.exit();
+    }, 10);
 });
 
 module.exports = app;
