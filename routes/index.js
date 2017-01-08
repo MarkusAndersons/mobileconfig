@@ -19,10 +19,8 @@ var templates = {
 };
 
 /* GET home page. */
-var sess;
 router.get('/', function(req, res, next) {
-    sess = req.session;
-    if (sess.email) {
+    if (req.session.email) {
         console.log("Already defined");
         res.render('index-with-confirm', { title: config.title, currentEmail: sess.email });
     } else {
@@ -42,7 +40,7 @@ router.get('/restart', function(req, res, next) {
 
 // store email
 router.post('/valid_email', function(req, res) {
-    sess.email = req.body.address;
+    req.session.email = req.body.address;
     res.sendStatus(200);
 });
 
@@ -57,8 +55,21 @@ renderGet('/generate/certificate/upload', 'generator/certificate-upload');
 renderGet('/generate/email', 'generator/email');
 renderGet('/generate/wifi', 'generator/wifi');
 
-renderGet('/download', 'download');
+//renderGet('/download', 'download');
+router.get('/download', function(req, res, next) {
+    if (!req.session.profilePath) req.session.profilePath = null;
+    res.render('download', { title: config.title, url: config.url, downloadUrl: '/profiles/' + req.session.profilePath.substr(5, req.session.profilePath.length - 5)});
+});
 
+// file download
+router.get('/profiles/:id', function(req, res, next) {
+    if (req.params.id) {
+        res.set('Content-Type', 'application/octet-stream');
+        res.sendFile(path.join(__dirname, '..', req.session.profilePath.substr(1, req.session.profilePath.length - 1)));
+    } else {
+        res.sendStatus(400);
+    }
+})
 
 /////// API //////
 // store general settings
@@ -66,9 +77,9 @@ router.post('/api/general_settings', function(req, res) {
     if (!req.body.PayloadIdentifier) {
         res.sendStatus(400);
     } else {
-        sess.general = req.body;
-        sess.general.PayloadVersion = 1;
-        sess.general.PayloadUUID = uuid.v4();
+        req.session.general = req.body;
+        req.session.general.PayloadVersion = 1;
+        req.session.general.PayloadUUID = uuid.v4();
         res.sendStatus(200);
     }
 });
@@ -83,17 +94,17 @@ router.post('/api/certificate_settings', upload.single("fileInput"), function(re
         }
         configuration.PayloadUUID = uuid.v4();
         configuration.PayloadType = "com.apple.security.pem";
-        configuration.PayloadIdentifier = sess.general.PayloadIdentifier + ".certificate";
+        configuration.PayloadIdentifier = req.session.general.PayloadIdentifier + ".certificate";
         //console.log(configuration);
-        sess.tempCertSettings = configuration;
+        req.session.tempCertSettings = configuration;
         res.sendStatus(200);
     }
 });
 router.post('/api/certificate_upload', upload.single("fileInput"), function(req, res) {
-    sess.tempCertSettings.PayloadCertificateFileName = req.file.originalname;
+    req.session.tempCertSettings.PayloadCertificateFileName = req.file.originalname;
     var tmpCert = fs.readFileSync(req.file.path, 'utf8');
-    sess.tempCertSettings.PayloadContent = String(tmpCert).substr(28, String(tmpCert).length - 55);
-    console.log(sess.tempCertSettings);
+    req.session.tempCertSettings.PayloadContent = String(tmpCert).substr(28, String(tmpCert).length - 55);
+    console.log(req.session.tempCertSettings);
 
     // delete the cert file
     fs.unlink(req.file.path, (err) => {
@@ -102,9 +113,9 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
     });
 
     // compile the payload
-    individualProfileCompile(templates.certificate, sess.tempCertSettings);
+    individualProfileCompile(templates.certificate, req.session.tempCertSettings, req);
     // reset to allow more than one certificate
-    sess.tempCertSettings = {};
+    req.session.tempCertSettings = {};
 
     res.redirect('/generate');  // need a permanent fix
     //res.sendStatus(200);
@@ -115,26 +126,23 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
 
 router.get('/api/create_profile', function(req, res, next) {
     var PayloadContent = "";
-    for (var i = 0; i < sess.configurations.length; i++) {
-        PayloadContent += sess.configurations[i];
+    for (var i = 0; i < req.session.configurations.length; i++) {
+        PayloadContent += req.session.configurations[i];
     }
-    var profile = templates.general(sess.general);
+    var profile = templates.general(req.session.general);
     profile += PayloadContent;
     profile += "</array></dict></plist>";
 
-    // THIS NEEDS TO BE DONE
-    /*var path = '../tmp/' + sess.email + '.mobileconfig';
-    console.log(path);
-    fs.closeSync(fs.openSync(filepath, 'w'));
-    fs.writeFile(path, profile, (err) => {
-        console.log("saved to " + path);
-    });
-    sess.profilePath = path;*/
+    var temporaryProfile = tmp.fileSync();
+    fs.writeFileSync(temporaryProfile.fd, profile);
+    var newPath = "./tmp/" + uuid.v4() + ".mobileconfig";
+    fs.renameSync(temporaryProfile.name, newPath);
+    req.session.profilePath = newPath.substr(1, newPath.length - 1);
     res.sendStatus(200);
 });
 
 // payload settings extraction
-function individualProfileCompile(template, configuration) {
+function individualProfileCompile(template, configuration, req) {
     var locSettings = template(configuration);
 
     if (template === templates.certificate) {
@@ -142,10 +150,10 @@ function individualProfileCompile(template, configuration) {
         locSettings += templates.certificateEnd(configuration);
     }
 
-    if (sess.configurations)
-        sess.configurations = sess.configurations.concat([locSettings]);
+    if (req.session.configurations)
+        req.session.configurations = req.session.configurations.concat([locSettings]);
     else
-        sess.configurations = [locSettings];
+        req.session.configurations = [locSettings];
 }
 
 function renderGet(url, template) {

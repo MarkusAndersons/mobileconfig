@@ -83,6 +83,10 @@ function createProfile() {
         "http://localhost:3000/download", "GET", null);
 }
 
+function downloadProfile(profile) {
+    
+}
+
 function ajax(apiEndpoint, redirect, method, content) {
     var req = new XMLHttpRequest();
     req.onreadystatechange = function() {

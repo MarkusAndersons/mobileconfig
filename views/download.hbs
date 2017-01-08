@@ -1,0 +1,14 @@
+<div class="container" onKeyPress="return checkEmailSubmit(event)">
+    <div class="row start">
+        <p>You can download your profile here or have it sent to your email address.</p>
+        <div class="col-md-6">
+            <a class="btn btn-default" href="{{downloadUrl}}">Download</a>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-default" disabled="disabled" onclick="emailProfile()">Email</button>
+        </div>
+    </div>
+    <div class="row start">
+        <button class="btn btn-default" onclick="window.location = '{{url}}';">Restart</button>
+    </div>
+</div>
