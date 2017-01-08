@@ -1,5 +1,6 @@
 var express = require('express');
 var config = require('../config');
+var cleanup = require('../cleanup');
 var handlebars = require('handlebars');
 var fs = require('fs');
 var path = require('path');
@@ -10,13 +11,16 @@ var router = express.Router();
 var multer = require('multer');
 var upload = multer({ dest: 'tmp/' });
 
-
+// initialise
 var templates = {
     general: handlebars.compile(fs.readFileSync(path.join(__dirname, "..", "config_templates","base_template.hbs"), "utf-8")),
     certificate : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","certificate_template_part1.hbs"), "utf-8")),
     certificateEnd : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","certificate_template_part2.hbs"), "utf-8")),
     email : handlebars.compile(fs.readFileSync(path.join(__dirname, "../config_templates","email_template.hbs"), "utf-8"))
 };
+
+cleanup.deleteFilesAfterHour();
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -104,7 +108,7 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
     req.session.tempCertSettings.PayloadCertificateFileName = req.file.originalname;
     var tmpCert = fs.readFileSync(req.file.path, 'utf8');
     req.session.tempCertSettings.PayloadContent = String(tmpCert).substr(28, String(tmpCert).length - 55);
-    console.log(req.session.tempCertSettings);
+    //console.log(req.session.tempCertSettings);
 
     // delete the cert file
     fs.unlink(req.file.path, (err) => {
