@@ -83,6 +83,11 @@ function createProfile() {
         "http://localhost:3000/download", "GET", null);
 }
 
+function emailProfile() {
+    ajax("http://localhost:3000/api/send_email",
+        window.location, "GET", null);
+}
+
 function ajax(apiEndpoint, redirect, method, content) {
     var req = new XMLHttpRequest();
     req.onreadystatechange = function() {

@@ -15,13 +15,14 @@ config.redis = { host: "127.0.0.1",
 // email settings
 // curently only supports mailgun
 config.mail = {
-    api_key: '',
-    domain: '',
+    apiKey: '',
+    domain: 'mg.markusandersons.com',
     data: {
         from: 'Markus Andersons <no-reply@markusandersons.com>',
         to: '',
-        subject: '',
-        text: '',
+        subject: 'Configuration Profile',
+        text: 'Attached is the configuration profile you created at ' + config.url + '.\n\n'
+                + 'Generated with mobileconfig (https://github.com/markusandersons/mobileconfig)',
         attachment: ''
     }
 };

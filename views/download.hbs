@@ -2,13 +2,13 @@
     <div class="row start">
         <p>You can download your profile here or have it sent to your email address.</p>
         <div class="col-md-6">
-            <a class="btn btn-default" href="{{downloadUrl}}">Download</a>
+            <a class="btn btn-default" href="{{downloadUrl}}"><i class="fa fa-download" aria-hidden="true"></i> Download</a>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-default" disabled="disabled" onclick="emailProfile()">Email</button>
+            <button class="btn btn-default" onclick="emailProfile()"><i class="fa fa-envelope" aria-hidden="true"></i> Email</button>
         </div>
     </div>
     <div class="row start">
-        <button class="btn btn-default" onclick="window.location = '{{url}}';">Restart</button>
+        <button class="btn btn-default" onclick="window.location = '{{url}}';"><i class="fa fa-undo" aria-hidden="true"></i> Restart</button>
     </div>
 </div>

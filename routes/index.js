@@ -11,6 +11,9 @@ var router = express.Router();
 var multer = require('multer');
 var upload = multer({ dest: 'tmp/' });
 
+var mailgun = require('mailgun-js')({apiKey: config.mail.apiKey,
+                                     domain: config.mail.domain});
+
 // initialise
 var templates = {
     general: handlebars.compile(fs.readFileSync(path.join(__dirname, "..", "config_templates","base_template.hbs"), "utf-8")),
@@ -88,7 +91,7 @@ router.post('/api/general_settings', function(req, res) {
     }
 });
 
-router.post('/api/certificate_settings', upload.single("fileInput"), function(req, res) {
+router.post('/api/certificate_settings', function(req, res) {
     if (!req.body.PayloadDisplayName) {
         res.sendStatus(400);
     } else {
@@ -125,9 +128,6 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
     //res.sendStatus(200);
 });
 
-
-
-
 router.get('/api/create_profile', function(req, res, next) {
     var PayloadContent = "";
     for (var i = 0; i < req.session.configurations.length; i++) {
@@ -142,6 +142,16 @@ router.get('/api/create_profile', function(req, res, next) {
     var newPath = "./tmp/" + uuid.v4() + ".mobileconfig";
     fs.renameSync(temporaryProfile.name, newPath);
     req.session.profilePath = newPath.substr(1, newPath.length - 1);
+    res.sendStatus(200);
+});
+
+router.get('/api/send_email', function(req, res) {
+    var data = config.mail.data;
+    data.to = req.session.email;
+    data.attachment = path.join(__dirname, '..', req.session.profilePath.substr(1, req.session.profilePath.length - 1));
+    mailgun.messages().send(data, function (error, body) {
+        console.log(body);
+    });
     res.sendStatus(200);
 });
 
