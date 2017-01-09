@@ -12,7 +12,7 @@ function submit() {
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function() {
-        if (req.readyState == 4 && req.status == 200) {
+        if (req.readyState === 4 && req.status === 200) {
             window.location = "http://localhost:3000/generate/certificate/upload";
         }
     }

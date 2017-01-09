@@ -72,7 +72,7 @@ router.get('/download', function(req, res, next) {
 router.get('/profiles/:id', function(req, res, next) {
     if (req.params.id) {
         res.set('Content-Type', 'application/octet-stream');
-        res.sendFile(path.join(__dirname, '..', req.session.profilePath.substr(1, req.session.profilePath.length - 1)));
+        res.sendFile(getProfilePath(req));
     } else {
         res.sendStatus(400);
     }
@@ -148,7 +148,7 @@ router.get('/api/create_profile', function(req, res, next) {
 router.get('/api/send_email', function(req, res) {
     var data = config.mail.data;
     data.to = req.session.email;
-    data.attachment = path.join(__dirname, '..', req.session.profilePath.substr(1, req.session.profilePath.length - 1));
+    data.attachment = getProfilePath(req);
     mailgun.messages().send(data, function (error, body) {
         console.log(body);
     });
@@ -174,6 +174,10 @@ function renderGet(url, template) {
     router.get(url, function(req, res, next) {
         res.render(template, { title: config.title, url: config.url});
     });
+}
+
+function getProfilePath(req) {
+    return path.join(__dirname, '..', req.session.profilePath.substr(1, req.session.profilePath.length - 1))
 }
 
 module.exports = router;

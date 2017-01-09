@@ -32,7 +32,7 @@ app.use(require('node-sass-middleware')({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-if (config.session.useRedis == true) {
+if (config.session.useRedis === true) {
     app.use(session({
         secret: config.session.secret,
         resave: false,
