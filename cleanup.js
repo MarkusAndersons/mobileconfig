@@ -16,7 +16,7 @@ var cleanup = {
         }
     },
     deleteFilesAfterHour: function() {
-        cron.schedule('* * * * *', function(){
+        cron.schedule('0 * * * *', function(){
             cleanup.deleteFiles();
         });
     }

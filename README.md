@@ -23,3 +23,5 @@ $ DEBUG=mobileconfig:* npm start
 In routes/index.js the router for POST to /api/certificate_upload needs to be improved to not use a 302 redirect, instead use a client side fix.
 
 Profile signing
+
+Create account system, remove email section and replace with accounts, store the email against an account. The account can store the cert to sign the profiles with
