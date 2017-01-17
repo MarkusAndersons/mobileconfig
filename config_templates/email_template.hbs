@@ -50,14 +50,74 @@
     <key>IncomingMailServerPortNumber</key>
     <integer>{{IncomingMailServerPortNumber}}</integer>
     {{/if}}
-    
+
+    <key>IncomingMailServerUseSSL</key>
     {{#if IncomingMailServerUseSSL}}
     <true/>
-    {{ else }}
+    {{else}}
     <false/>
     {{/if}}
 
+    <key>IncomingMailServerUsername</key>
+    <string>{{IncomingMailServerUsername}}</string>
 
-    MORE FROM HERE
+    {{#if IncomingPassword}}
+    <key>IncomingPassword</key>
+    <string>{{IncomingPassword}}</string>
+    {{/if}}
+
+    {{#if OutgoingPassword}}
+    <key>OutgoingPassword</key>
+    <string>{{OutgoingPassword}}</string>
+    {{/if}}
+
+    <key>OutgoingPasswordSameAsIncomingPassword</key>
+    {{#if OutgoingPasswordSameAsIncomingPassword}}
+    <true/>
+    {{else}}
+    <false/>
+    {{/if}}
+
+    <key>OutgoingMailServerAuthentication</key>
+    <string>{{OutgoingMailServerAuthentication}}</string>
+
+    <key>OutgoingMailServerHostName</key>
+    <string>{{OutgoingMailServerHostName}}</string>
+
+    {{#if OutgoingMailServerPortNumber}}
+    <key>OutgoingMailServerPortNumber</key>
+    <integer>{{OutgoingMailServerPortNumber}}</integer>
+    {{/if}}
+
+    <key>OutgoingMailServerUseSSL</key>
+    {{#if OutgoingMailServerUseSSL}}
+    <true/>
+    {{else}}
+    <false/>
+    {{/if}}
+
+    <key>OutgoingMailServerUsername</key>
+    <string>{{OutgoingMailServerUsername}}</string>
+
+    <key>PreventMove</key>
+    {{#if PreventMove}}
+    <true/>
+    {{else}}
+    <false/>
+    {{/if}}
+
+    <key>PreventAppSheet</key>
+    {{#if PreventAppSheet}}
+    <true/>
+    {{else}}
+    <false/>
+    {{/if}}
+
+    <key>allowMailDrop</key>
+    {{#if allowMailDrop}}
+    <true/>
+    {{else}}
+    <false/>
+    {{/if}}
 
 </dict>
