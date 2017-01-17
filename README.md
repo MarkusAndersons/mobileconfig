@@ -10,8 +10,10 @@ The application can use a Redis server for the session data. The settings for th
 
 ## Configuration
 Before running, some settings need to be set for the app, these can be edited from the *config.js* file.
+
 **Mailgun**
-To enable the app to send completed profiles to an email address, this app uses the *Mailgun* API. An account can be created for free at [http://www.mailgun.com](http://www.mailgun.com). Then simply enter your domain and API key in the configuration file.
+
+ - To enable the app to send completed profiles to an email address, this app uses the *Mailgun* API. An account can be created for free at [http://www.mailgun.com](http://www.mailgun.com). Then simply enter your domain and API key in the configuration file.
 
 ## How to run
 
