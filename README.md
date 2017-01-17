@@ -2,11 +2,16 @@
 [![Code Climate](https://codeclimate.com/github/MarkusAndersons/mobileconfig/badges/gpa.svg)](https://codeclimate.com/github/MarkusAndersons/mobileconfig)
 ![David](https://david-dm.org/markusandersons/mobileconfig.svg)
 
-A simple Node web app to create custom Apple Configuration files (.mobileconfig)
+Apple Configuration Profiles (.mobileconfig) allow you to set most settings on Apple devices by installing a "Profile". This Node.js web app simplifies the creation of these so anyone can make them even with minimal programming knowledge.
 
 
 ## Dependencies
-The application can use a Redis server for the session data (further functionality will be added later). The settings for this server can be edited in the config file. Currently it is commented out from app.js for testing purposes.
+The application can use a Redis server for the session data. The settings for this server can be edited in the config file.
+
+## Configuration
+Before running, some settings need to be set for the app, these can be edited from the *config.js* file.
+**Mailgun**
+To enable the app to send completed profiles to an email address, this app uses the *Mailgun* API. An account can be created for free at [http://www.mailgun.com](http://www.mailgun.com). Then simply enter your domain and API key in the configuration file.
 
 ## How to run
 
