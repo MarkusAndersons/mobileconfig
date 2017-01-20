@@ -1,0 +1,31 @@
+<!-- sidebar -->
+<div class="container">
+    <div class="row progress-cust">
+        <p>To generate a mobileconfig containing an email account, please enter the setings below. Asterisk (*) denotes a required field.</p>
+    </div>
+    <div class="row">
+        <div id="message" style="height:100px"></div>
+        <div class="form-group">
+            <label for="emailAddress">Email Address*</label>
+            <input type="text" class="form-control" id="emailAddress" placeholder="someone@example.com">
+
+            <!--<label for="certificateDisplayName">Certificate Display Name*</label>
+            <input type="text" class="form-control" id="certificateDisplayName" placeholder="My Certificate">
+            <p class="help-block">This is the name of the certificate which will be displayed to the user</p>
+
+            <label for="certificateDescription">Certificate Description</label>
+            <input type="text" class="form-control" id="certificateDescription" placeholder="This certificate allows you to ...">
+            <p class="help-block">A description of this certificate. This description is shown on the Detail screen.</p>
+
+            <label for="certificateOrganisation">Certificate Organisation</label>
+            <input type="text" class="form-control" id="certificateOrganisation" placeholder="Company Ltd.">
+            <p class="help-block">The name of the organization that provided the profile</p>
+
+            <label for="versionNumber">Version Number</label>
+            <input type="number" class="form-control" id="versionNumber" placeholder="1">
+            <p class="help-block">The version number for this profile</p>-->
+        </div>
+        <button type="submit" class="btn btn-default" onclick="submit()">Submit</button>
+    </div>
+</div>
+<script src="{{url}}/javascripts/emailValidation.js"></script>

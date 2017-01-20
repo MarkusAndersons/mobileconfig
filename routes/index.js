@@ -29,7 +29,7 @@ cleanup.deleteFilesAfterHour();
 router.get('/', function(req, res, next) {
     if (req.session.email) {
         console.log("Already defined");
-        res.render('index-with-confirm', { title: config.title, currentEmail: sess.email });
+        res.render('index-with-confirm', { title: config.title, currentEmail: req.session.email });
     } else {
         res.render('index', { title: config.title });
     }
@@ -124,8 +124,7 @@ router.post('/api/certificate_upload', upload.single("fileInput"), function(req,
     // reset to allow more than one certificate
     req.session.tempCertSettings = {};
 
-    res.redirect('/generate');  // need a permanent fix
-    //res.sendStatus(200);
+    res.redirect('/generate');
 });
 
 router.get('/api/create_profile', function(req, res, next) {
