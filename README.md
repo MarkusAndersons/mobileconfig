@@ -6,7 +6,9 @@ Apple Configuration Profiles (.mobileconfig) allow you to set most settings on A
 
 
 ## Dependencies
-The application can use a Redis server for the session data. The settings for this server can be edited in the config file.
+*DEPRECATED* The application can use a Redis server for the session data. The settings for this server can be edited in the config file.
+
+This application will use a MongoDB database to store accounts and session data. Therefore, for the application to function correctly, a MongoDB server will need to be used and the settings for this added to the config.js file.
 
 ## Configuration
 Before running, some settings need to be set for the app, these can be edited from the *config.js* file.
@@ -27,8 +29,8 @@ $ DEBUG=mobileconfig:* npm start
 ```
 
 ## TODO
-In routes/index.js the router for POST to /api/certificate_upload needs to be improved to not use a 302 redirect, instead use a client side fix.
-
 Profile signing
 
 Create account system, remove email section and replace with accounts, store the email against an account. The account can store the cert to sign the profiles with
+
+Add authorization
