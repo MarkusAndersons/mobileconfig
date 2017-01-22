@@ -6,10 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var config = require('./config');
-var cleanup = require('./cleanup');
-var RedisStore = require('connect-redis')(session);
+var cleanup = require('./logic/cleanup');
 
 var index = require('./routes/index');
+var api = require('./routes/api');
 
 var app = express();
 
@@ -32,22 +32,14 @@ app.use(require('node-sass-middleware')({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-if (config.session.useRedis === true) {
-    app.use(session({
-        secret: config.session.secret,
-        resave: false,
-        saveUninitialized: true,
-        store: new RedisStore(config.redis)
-    }));
-} else {
-    app.use(session({
-        secret: config.session.secret,
-        resave: false,
-        saveUninitialized: true
-    }));
-}
+app.use(session({
+    secret: config.session.secret,
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.use('/', index);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
