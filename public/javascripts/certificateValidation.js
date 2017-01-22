@@ -10,13 +10,6 @@ function submit() {
     content.PayloadOrganization = document.getElementById('certificateOrganisation').value;
     content.PayloadVersion = document.getElementById('versionNumber').value;
 
-    var req = new XMLHttpRequest();
-    req.onreadystatechange = function() {
-        if (req.readyState === 4 && req.status === 200) {
-            window.location = "http://localhost:3000/generate/certificate/upload";
-        }
-    }
-    req.open("POST", "http://localhost:3000/api/certificate_settings", true);
-    req.setRequestHeader('Content-Type', 'application/json');
-    req.send(JSON.stringify(content));
+    ajax("http://localhost:3000/api/certificate_settings",
+        "http://localhost:3000/generate/certificate/upload", "POST", content);
 }
